@@ -11,8 +11,19 @@
 		A10000000000000000000002 /* FCoreNFCTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FCoreNFCTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		A21000000000000000000001 /* Exceptions for "FCoreNFC" folder in "FCoreNFC" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				FCoreNFC.entitlements,
+				Info.plist,
+			);
+			target = A50000000000000000000001 /* FCoreNFC */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		A20000000000000000000001 /* FCoreNFC */ = {isa = PBXFileSystemSynchronizedRootGroup; path = FCoreNFC; sourceTree = "<group>"; };
+		A20000000000000000000001 /* FCoreNFC */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (A21000000000000000000001 /* Exceptions for "FCoreNFC" folder in "FCoreNFC" target */); path = FCoreNFC; sourceTree = "<group>"; };
 		A20000000000000000000002 /* FCoreNFCTests */ = {isa = PBXFileSystemSynchronizedRootGroup; path = FCoreNFCTests; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
