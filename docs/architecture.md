@@ -16,7 +16,8 @@ HomeViewModel ─── CardStore (JSON / Application Support)
       │
  NFCReading protocol
       │
-CoreNFCReader ─── NDEFPayloadDecoder
+CoreNFCReader ─┬─ NDEFPayloadDecoder
+              └─ ISO7816Exchange ── TransitCardParser
       │
  Apple Core NFC
 ```
@@ -25,8 +26,7 @@ CoreNFCReader ─── NDEFPayloadDecoder
 
 ## 后续阶段
 
-1. 完善 iOS 协议 APDU 传输层及公开公交卡解析器。
+1. 扩展公开公交卡解析器与去标识化测试向量。
 2. 增加加密本地存储、导出前脱敏和隐私控制。
 3. 创建 Android/Kotlin 模块，使用相同的数据模型与测试向量。
 4. 与门禁或公交运营方合作，评估 Apple NFC & SE Platform / HCE entitlement。
-

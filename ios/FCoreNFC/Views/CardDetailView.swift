@@ -16,6 +16,21 @@ struct CardDetailView: View {
                 }
             }
 
+            if let transitDetails = card.transitDetails {
+                Section("公交卡") {
+                    LabeledContent("卡种", value: transitDetails.schemeName)
+                    LabeledContent("应用 AID", value: transitDetails.applicationIdentifier)
+                    if let balance = transitDetails.formattedBalance {
+                        LabeledContent("卡内余额", value: balance)
+                    } else {
+                        LabeledContent("卡内余额", value: "卡片未公开或读取失败")
+                    }
+                    Text("余额来自实体卡公开储值应用，仅供参考，请以运营方记录为准。")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                }
+            }
+
             if !card.metadata.isEmpty {
                 Section("公开元数据") {
                     ForEach(card.metadata.keys.sorted(), id: \.self) { key in
@@ -56,4 +71,3 @@ struct CardDetailView: View {
         .navigationTitle(card.technology.rawValue)
     }
 }
-

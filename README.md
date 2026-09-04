@@ -8,6 +8,7 @@ FCore NFC 是一个面向 iOS 与 Android 的开源 NFC 工具项目。项目目
 
 - SwiftUI 原生界面，最低支持 iOS 16
 - 使用 Core NFC 扫描 ISO 7816、ISO 15693、FeliCa 与 Apple 支持的 MIFARE 标签
+- 通过 ISO 7816 APDU 识别交通联合与 City Union 卡，并读取公开余额
 - 读取并解析 NDEF 文本、URI 和原始记录
 - 展示卡片 UID/标识符、协议与公开元数据
 - 由用户明确确认后，将扫描记录保存在应用本地
@@ -34,6 +35,15 @@ open ios/FCoreNFC.xcodeproj
 
 在 Xcode 中选择自己的开发团队和真机后运行。NFC 扫描无法在 Simulator 中完成，但工程和单元测试可以在 Simulator 上构建。
 
+创建 Archive 并上传 TestFlight：
+
+```bash
+DEVELOPMENT_TEAM=YOUR_TEAM_ID ./scripts/archive-ios.sh
+DEVELOPMENT_TEAM=YOUR_TEAM_ID ./scripts/upload-testflight.sh
+```
+
+上传需要付费 Apple Developer Program 团队、App Store Connect 应用记录，以及有效的分发签名权限。脚本也支持通过 `ASC_KEY_PATH`、`ASC_KEY_ID`、`ASC_ISSUER_ID` 使用 App Store Connect API Key。
+
 命令行验证：
 
 ```bash
@@ -59,4 +69,3 @@ docs/                架构、平台能力和路线图
 ## License
 
 [MIT](LICENSE)
-

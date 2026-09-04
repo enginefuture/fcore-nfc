@@ -48,6 +48,7 @@ struct NFCCardRecord: Codable, Equatable, Identifiable {
     let identifierHex: String
     let metadata: [String: String]
     let ndefRecords: [NDEFRecordSnapshot]
+    let transitDetails: TransitCardDetails?
 
     init(
         id: UUID = UUID(),
@@ -55,7 +56,8 @@ struct NFCCardRecord: Codable, Equatable, Identifiable {
         technology: NFCTechnology,
         identifierHex: String,
         metadata: [String: String] = [:],
-        ndefRecords: [NDEFRecordSnapshot] = []
+        ndefRecords: [NDEFRecordSnapshot] = [],
+        transitDetails: TransitCardDetails? = nil
     ) {
         self.id = id
         self.scannedAt = scannedAt
@@ -63,6 +65,7 @@ struct NFCCardRecord: Codable, Equatable, Identifiable {
         self.identifierHex = identifierHex
         self.metadata = metadata
         self.ndefRecords = ndefRecords
+        self.transitDetails = transitDetails
     }
 }
 
@@ -71,4 +74,3 @@ extension Data {
         map { String(format: "%02X", $0) }.joined()
     }
 }
-

@@ -77,7 +77,22 @@ final class CoreNFCReader: NSObject, NFCReading, NFCTagReaderSessionDelegate {
             if let applicationData = card.applicationData, !applicationData.isEmpty {
                 metadata["Application data"] = applicationData.hexadecimalString
             }
-            readNDEF(from: card, technology: .iso7816, identifier: card.identifier, metadata: metadata, session: session)
+            let transceiver = CoreNFCISO7816Transceiver(tag: card)
+            Task { [weak self] in
+                guard let self else { return }
+                let transitDetails = await StoredValueTransitCardParser().parse(
+                    using: transceiver,
+                    initiallySelectedApplicationIdentifier: card.initialSelectedAID
+                )
+                self.readNDEF(
+                    from: card,
+                    technology: .iso7816,
+                    identifier: card.identifier,
+                    metadata: metadata,
+                    transitDetails: transitDetails,
+                    session: session
+                )
+            }
 
         case let .iso15693(card):
             let metadata = [
@@ -108,6 +123,7 @@ final class CoreNFCReader: NSObject, NFCReading, NFCTagReaderSessionDelegate {
         technology: NFCTechnology,
         identifier: Data,
         metadata: [String: String],
+        transitDetails: TransitCardDetails? = nil,
         session: NFCTagReaderSession
     ) {
         tag.queryNDEFStatus { [weak self] status, capacity, error in
@@ -117,7 +133,12 @@ final class CoreNFCReader: NSObject, NFCReading, NFCTagReaderSessionDelegate {
 
             guard error == nil, status != .notSupported else {
                 self.completeScan(
-                    NFCCardRecord(technology: technology, identifierHex: identifier.hexadecimalString, metadata: enrichedMetadata),
+                    NFCCardRecord(
+                        technology: technology,
+                        identifierHex: identifier.hexadecimalString,
+                        metadata: enrichedMetadata,
+                        transitDetails: transitDetails
+                    ),
                     session: session
                 )
                 return
@@ -137,7 +158,8 @@ final class CoreNFCReader: NSObject, NFCReading, NFCTagReaderSessionDelegate {
                         technology: technology,
                         identifierHex: identifier.hexadecimalString,
                         metadata: enrichedMetadata,
-                        ndefRecords: records
+                        ndefRecords: records,
+                        transitDetails: transitDetails
                     ),
                     session: session
                 )

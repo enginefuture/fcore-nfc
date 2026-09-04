@@ -22,6 +22,8 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>NFCReaderUsageDescription</key>
 	<string>用于读取你主动贴近 iPhone 的 NFC 标签和卡片公开信息。</string>
 	<key>com.apple.developer.nfc.readersession.felica.systemcodes</key>
@@ -31,6 +33,9 @@
 	<key>com.apple.developer.nfc.readersession.iso7816.select-identifiers</key>
 	<array>
 		<string>D2760000850101</string>
+		<string>A000000632010105</string>
+		<string>A000000632010106</string>
+		<string>A00000000386980701</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
@@ -45,4 +50,3 @@
 	</array>
 </dict>
 </plist>
-
